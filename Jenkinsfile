@@ -1,17 +1,36 @@
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('Hazırlık') {
             steps {
-                echo 'Compiling the java source code'
-                sh 'javac Hello.java'
+                echo 'Proje hazırlığı yapılıyor...'
             }
         }
-        stage('run') {
+        stage('Derleme') {
             steps {
-                echo 'Running the compiled java code,.'
-                sh 'java Hello'
+                echo 'Projeyi derleme işlemi yapılıyor...'
             }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testler çalıştırılıyor...'
+            }
+        }
+        stage('Dağıtım') {
+            steps {
+                echo 'Uygulama dağıtılıyor...'
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Başarıyla tamamlandı. Yeni sürüm dağıtıldı!'
+        }
+        failure {
+            echo 'Hata oluştu. Lütfen sorunu kontrol edin.'
+        }
+        always {
+            echo 'Jenkins Pipeline tamamlandı.'
         }
     }
 }
